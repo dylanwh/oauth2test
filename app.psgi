@@ -3,6 +3,7 @@ use Mojolicious::Lite;
 my $client_id = 'batman';
 my $client_secret = 'robin';
 plugin 'OAuth2::Server' => {
+    jwt_secret => 'prince edward island potatoes',
     clients => {
         $client_id => {
             client_secret => $client_secret,

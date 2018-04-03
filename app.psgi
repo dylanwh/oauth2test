@@ -39,4 +39,10 @@ any '/track_location' => sub {
     $c->render( text => "Target acquired: @{[$oauth_details->{user_id}]}" );
 };
 
+post '/oauth/access_token' => sub {
+    my ($c) = @_;
+    use Data::Dumper;
+    warn Dumper($c->req->body_params);
+};
+
 app->start;

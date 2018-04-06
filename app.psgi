@@ -1,16 +1,16 @@
 use Mojolicious::Lite;
 
-my $client_id = 'batman';
+my $client_id     = 'batman';
 my $client_secret = 'robin';
+my $jwt_secret    = 'prince edward island potatoes';
+
 plugin 'OAuth2::Server' => {
-    jwt_secret => 'prince edward island potatoes',
+    jwt_secret => $jwt_secret,
     clients => {
         $client_id => {
             client_secret => $client_secret,
             scopes        => {
-                eat   => 1,
-                drink => 0,
-                sleep => 1,
+                'read:profile' => 1,
             },
         },
     },
@@ -27,8 +27,16 @@ group {
         return undef;
     };
 
-    any '/annoy_friends' => sub { shift->render( text => "Annoyed Friends" ); };
-    any '/post_image'    => sub { shift->render( text => "Posted Image" ); };
+    get '/userinfo' => sub {
+        my ($c) = @_;
+        $c->render(
+            json => {
+                user_id => 10,
+                login   => 'dylan@hardison.net',
+                name    => 'Dylan Hardison',
+            }
+        );
+    },
 };
 
 any '/track_location' => sub {

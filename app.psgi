@@ -27,16 +27,18 @@ group {
         return undef;
     };
 
-    get '/userinfo' => sub {
-        my ($c) = @_;
-        $c->render(
-            json => {
-                user_id => 10,
-                login   => 'dylan@hardison.net',
-                name    => 'Dylan Hardison',
-            }
-        );
-    },
+};
+
+
+get '/userinfo' => sub {
+    my ($c) = @_;
+    $c->render(
+        json => {
+            user_id => 10,
+            login   => 'dylan@hardison.net',
+            name    => 'Dylan Hardison',
+        }
+    );
 };
 
 any '/track_location' => sub {

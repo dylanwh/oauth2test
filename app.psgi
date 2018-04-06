@@ -6,12 +6,10 @@ my $jwt_secret    = 'prince edward island potatoes';
 
 plugin 'OAuth2::Server' => {
     jwt_secret => $jwt_secret,
-    clients => {
+    clients    => {
         $client_id => {
             client_secret => $client_secret,
-            scopes        => {
-                'read:profile' => 1,
-            },
+            scopes        => { 'read:profile' => 1, },
         },
     },
 };
@@ -30,32 +28,16 @@ group {
     get '/userinfo' => sub {
         my ($c) = @_;
 
-        use Data::Dumper;
-        warn Dumper($c->req->query_params->to_hash);
-        warn Dumper($c->req->body_params->to_hash);
-        warn Dumper($c->req->body);
-
         $c->render(
             json => {
-                user_id => 10,
-                username  => 'dylan@hardison.net',
-                email  => 'dylan@hardison.net',
-                name    => 'Dylan Hardison',
+                user_id  => 10,
+                username => 'dylan@hardison.net',
+                email    => 'dylan@hardison.net',
+                name     => 'Dylan Hardison',
             }
         );
 
     };
-};
-
-
-
-any '/track_location' => sub {
-    my ($c) = @_;
-
-    my $oauth_details = $c->oauth('track_location')
-        || return $c->render( status => 401, text => 'You cannot track location' );
-
-    $c->render( text => "Target acquired: @{[$oauth_details->{user_id}]}" );
 };
 
 app->start;

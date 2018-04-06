@@ -35,7 +35,8 @@ get '/userinfo' => sub {
     $c->render(
         json => {
             user_id => 10,
-            login   => 'dylan@hardison.net',
+            username  => 'dylan@hardison.net',
+            email  => 'dylan@hardison.net',
             name    => 'Dylan Hardison',
         }
     );
